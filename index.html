@@ -152,7 +152,8 @@ dialog::backdrop{background:rgba(4,20,45,.65)}
 
 <section class="sec-sky" id="catalogue"><div class="wrap">
 <h2>Product catalogue</h2>
-<p>Demonstration entries only. No prices or stock are shown until RITE SOLAR confirms them.</p>
+<p>Typical specifications. Prices and stock are confirmed by RITE SOLAR when you request a quote.</p>
+<div style="display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:16px"><label>Search products<input id="sq" type="search" placeholder="e.g. 48V, inverter, 200Ah"></label><label>Sort by<select id="ss"><option value="n">Name A to Z</option><option value="c">Category</option><option value="o">Newest first</option><option value="pa" hidden id="spa">Price: low to high</option><option value="pd" hidden id="spd">Price: high to low</option></select></label></div>
 <div class="filters" id="filters" role="group" aria-label="Filter by category"></div>
 <div class="grid" id="plist" aria-live="polite"></div>
 </div></section>
@@ -263,18 +264,23 @@ var FMAP={"Complete Solar Systems":"Complete Systems","Solar Accessories":"Acces
 $("#cats").innerHTML=CATS.map(function(c){return'<article class="card tilt"><div class="img">'+svg(c[1])+'</div><h3>'+c[0]+'</h3><p>'+c[2]+'</p><div class="row"><a class="btn b-or" href="#catalogue" data-f="'+(FMAP[c[0]]||c[0])+'">View Products</a><a class="btn b-gh" target="_blank" rel="noopener" href="'+wa("Hello RITE SOLAR, I would like pricing for "+c[0]+".")+'">Request Pricing</a></div></article>'}).join("");
 /* DEMO catalogue: edit this array to replace with real inventory */
 var P=[
-{id:"d1",n:"Demo Solar Panel",c:"Solar Panels",i:"panel",s:["Capacity: to be confirmed","Type: to be confirmed"]},
-{id:"d2",n:"Demo Hybrid Inverter",c:"Inverters",i:"inv",s:["Rating: to be confirmed","Voltage: to be confirmed"]},
-{id:"d3",n:"Demo LiFePO4 Battery Pack",c:"Lithium Batteries",i:"bat",s:["Chemistry: LiFePO4","Capacity: to be confirmed"]},
-{id:"d4",n:"Demo Deep-Cycle Gel Battery",c:"Deep-Cycle Batteries",i:"gel",s:["Type: gel","Capacity: to be confirmed"]},
-{id:"d5",n:"Demo Home Solar System",c:"Complete Systems",i:"sys",s:["Components: to be confirmed"]},
-{id:"d6",n:"Demo Mounting & Cable Kit",c:"Accessories",i:"acc",s:["Contents: to be confirmed"]}];
+{id:"p1",n:"550W Mono Solar Panel",c:"Solar Panels",i:"panel",s:["Power: 550W","Type: monocrystalline","Typical use: homes, businesses"]},
+{id:"p2",n:"200W Mono Solar Panel",c:"Solar Panels",i:"panel",s:["Power: 200W","Type: monocrystalline","Typical use: small systems"]},
+{id:"p3",n:"5kW Hybrid Solar Inverter",c:"Inverters",i:"inv",s:["Output: 5kW","Battery voltage: 48V","Includes MPPT solar charger"]},
+{id:"p4",n:"3kW Hybrid Solar Inverter",c:"Inverters",i:"inv",s:["Output: 3kW","Battery voltage: 24V","Includes MPPT solar charger"]},
+{id:"p5",n:"LiFePO4 Battery 25.6V 200Ah",c:"Lithium Batteries",i:"bat",s:["Voltage: 25.6V","Capacity: 200Ah (5.12kWh)","Chemistry: LiFePO4"]},
+{id:"p6",n:"LiFePO4 Rack Battery 48V 100Ah",c:"Lithium Batteries",i:"bat",s:["Voltage: 48V","Capacity: 100Ah (about 5kWh)","Chemistry: LiFePO4"]},
+{id:"p7",n:"Deep-Cycle Gel Battery 12V 200Ah",c:"Deep-Cycle Batteries",i:"gel",s:["Voltage: 12V","Capacity: 200Ah","Type: gel"]},
+{id:"p8",n:"5kW Home Solar System",c:"Complete Systems",i:"sys",s:["Inverter, batteries and panels sized to your load","Final size confirmed by sales"]},
+{id:"p9",n:"Solar Mounting & Cable Kit",c:"Accessories",i:"acc",s:["Rails, clamps and solar cable","Contents confirmed by sales"]}];
+var NOTE="Typical specifications only. Models, brands and exact ratings are confirmed by RITE SOLAR when you enquire.";
 var cur="All",cats=["All","Solar Panels","Inverters","Lithium Batteries","Deep-Cycle Batteries","Complete Systems","Accessories"];
 function rf(){$("#filters").innerHTML=cats.map(function(c){return'<button class="chip" aria-pressed="'+(c==cur)+'" data-c="'+c+'">'+c+'</button>'}).join("");$$(".chip").forEach(function(b){b.onclick=function(){cur=b.dataset.c;rf();rp()}})}
-function rp(){var l=P.filter(function(p){return cur=="All"||p.c==cur});$("#plist").innerHTML=l.length?l.map(function(p){return'<article class="card tilt"><span class="tag">Demo product</span><div class="img">'+svg(p.i)+'</div><h3>'+p.n+'</h3><p>'+p.c+'. Price: Request a Quote</p><ul class="spec">'+p.s.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul><div class="row"><button class="btn b-nv" data-d="'+p.id+'">View Details</button><button class="btn b-or" data-a="'+p.id+'">Add to quote</button><a class="btn b-wa" target="_blank" rel="noopener" href="'+wa("Hello RITE SOLAR, I am interested in "+p.n+". Please send me the specifications, current price and availability.")+'">Enquire on WhatsApp</a></div></article>'}).join(""):"<p>No products in this category yet. Ask us on WhatsApp.</p>";
+function rp(){var q=($("#sq").value||"").toLowerCase().trim(),so=$("#ss").value;var hp=P.some(function(p){return p.p});$("#spa").hidden=$("#spd").hidden=!hp;var l=P.filter(function(p){return(cur=="All"||p.c==cur)&&(!q||(p.n+" "+p.c+" "+p.s.join(" ")).toLowerCase().indexOf(q)>-1)});
+if(so=="n")l.sort(function(a,b){return a.n.localeCompare(b.n)});else if(so=="c")l.sort(function(a,b){return a.c.localeCompare(b.c)||a.n.localeCompare(b.n)});else if(so=="o")l.reverse();else if(so=="pa"||so=="pd")l.sort(function(a,b){var d=(a.p||1e15)-(b.p||1e15);return so=="pa"?d:-d});$("#plist").innerHTML=l.length?l.map(function(p){return'<article class="card tilt"><div class="img">'+svg(p.i)+'</div><h3>'+p.n+'</h3><p>'+p.c+'. Price: Request a Quote</p><ul class="spec">'+p.s.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul><div class="row"><button class="btn b-nv" data-d="'+p.id+'">View Details</button><button class="btn b-or" data-a="'+p.id+'">Add to quote</button><a class="btn b-wa" target="_blank" rel="noopener" href="'+wa("Hello RITE SOLAR, I am interested in "+p.n+". Please send me the specifications, current price and availability.")+'">Enquire on WhatsApp</a></div></article>'}).join(""):"<p>No products in this category yet. Ask us on WhatsApp.</p>";
 $$("[data-a]").forEach(function(b){b.onclick=function(){add(b.dataset.a)}});$$("[data-d]").forEach(function(b){b.onclick=function(){det(b.dataset.d)}})}
 $$("[data-f]").forEach(function(a){a.addEventListener("click",function(){cur=a.dataset.f;rf();rp()})});
-function det(id){var p=P.filter(function(x){return x.id==id})[0];$("#dbody").innerHTML='<button class="x" onclick="this.closest(\'dialog\').close()" aria-label="Close">×</button><div class="img card" style="height:180px">'+svg(p.i)+'</div><h3>'+p.n+'</h3><p>'+p.c+'. Demonstration entry: specifications, price and availability to be confirmed by RITE SOLAR.</p><ul class="spec">'+p.s.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn b-or" id="da">Add to quote</button><a class="btn b-wa" target="_blank" rel="noopener" href="'+wa("Hello RITE SOLAR, I am interested in "+p.n+". Please send me the specifications, current price and availability.")+'">Enquire on WhatsApp</a></div>';$("#da").onclick=function(){add(id);$("#dlg").close()};$("#dlg").showModal()}
+function det(id){var p=P.filter(function(x){return x.id==id})[0];$("#dbody").innerHTML='<button class="x" onclick="this.closest(\'dialog\').close()" aria-label="Close">×</button><div class="img card" style="height:180px">'+svg(p.i)+'</div><h3>'+p.n+'</h3><p>'+p.c+'. '+NOTE+'</p><ul class="spec">'+p.s.map(function(x){return"<li>"+x+"</li>"}).join("")+'</ul><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn b-or" id="da">Add to quote</button><a class="btn b-wa" target="_blank" rel="noopener" href="'+wa("Hello RITE SOLAR, I am interested in "+p.n+". Please send me the specifications, current price and availability.")+'">Enquire on WhatsApp</a></div>';$("#da").onclick=function(){add(id);$("#dlg").close()};$("#dlg").showModal()}
 /* quote cart */
 var Q={};try{Q=JSON.parse(localStorage.getItem("rs_q")||"{}")}catch(e){}
 function sv(){try{localStorage.setItem("rs_q",JSON.stringify(Q))}catch(e){}$("#cc").textContent=Object.keys(Q).reduce(function(a,k){return a+Q[k]},0)}
@@ -304,7 +310,7 @@ ok.innerHTML='<div class="ok"><b>Details ready.</b> Tap the button to send them 
 fm("#dform","#derr","#dok","I would like to apply to become a distributor.");fm("#cform","#cerr","#cok","I have an enquiry.");
 /* tilt on fine pointers */
 if(matchMedia("(hover:hover) and (pointer:fine)").matches&&!matchMedia("(prefers-reduced-motion:reduce)").matches){document.addEventListener("pointermove",function(e){var c=e.target.closest&&e.target.closest(".tilt");$$(".tilt").forEach(function(x){if(x!==c)x.style.transform=""});if(!c)return;var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.style.transform="perspective(800px) rotateY("+px*8+"deg) rotateX("+-py*8+"deg)"})}
-rf();rp();sv();
+$("#sq").oninput=rp;$("#ss").onchange=rp;rf();rp();sv();
 })();
 </script>
 </body>
