@@ -8,7 +8,6 @@
 <meta property="og:title" content="RITE SOLAR | Clean Energy • Brighter Tomorrow">
 <meta property="og:description" content="Solar products, wholesale supply and distributor partnerships.">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://ritesolar.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,700..900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -210,7 +209,7 @@ dialog::backdrop{background:rgba(4,20,45,.65)}
 <section class="sec-sky" id="contact"><div class="wrap dg" style="color:var(--ink);gap:30px">
 <div>
 <h2>Contact RITE SOLAR</h2>
-<p>Website: <a href="https://ritesolar.com">https://ritesolar.com</a><br>Email: <a href="mailto:info@ritesolar.com">info@ritesolar.com</a><br>Phone / WhatsApp: <a href="tel:+2349067305559">+234 906 730 5559</a></p>
+<p>Phone / WhatsApp: <a href="tel:+2349067305559">+234 906 730 5559</a></p>
 <div class="cta"><a class="btn b-nv" href="tel:+2349067305559">Call now</a><a class="btn b-wa" data-wa="gen" href="#">WhatsApp</a></div>
 <p class="note" style="color:var(--mut);margin-top:14px">Business address: awaiting confirmation.</p>
 </div>
@@ -231,17 +230,17 @@ dialog::backdrop{background:rgba(4,20,45,.65)}
 <div><div class="logo" style="color:#fff">RITE <b>SOLAR</b></div><p>Clean Energy • Brighter Tomorrow</p></div>
 <div><h3>Products</h3><a href="#catalogue" data-f="Solar Panels">Solar Panels</a><a href="#catalogue" data-f="Inverters">Inverters</a><a href="#catalogue" data-f="Lithium Batteries">Lithium Batteries</a><a href="#catalogue" data-f="Deep-Cycle Batteries">Deep-Cycle Batteries</a></div>
 <div><h3>Company</h3><a href="#distributor">Distributor enquiry</a><a href="#contact">Contact</a><a href="#trust">Policies (pending)</a></div>
-<div><h3>Contact</h3><a href="mailto:info@ritesolar.com">info@ritesolar.com</a><a href="tel:+2349067305559">+234 906 730 5559</a><a href="https://ritesolar.com">ritesolar.com</a></div>
+<div><h3>Contact</h3><a href="tel:+2349067305559">+234 906 730 5559</a></div>
 </div><div class="wrap"><p style="margin-top:24px;font-size:.85rem">© <span id="yr"></span> RITE SOLAR. Privacy, terms, shipping, returns and warranty policies to be published once supplied.</p></div></footer>
 
 <a class="fab" data-wa="gen" href="#" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11 19.8L3 29l6.4-2A13 13 0 1 0 16 3zm7.3 18.4c-.3.9-1.8 1.7-2.5 1.7-.7.1-1.4.3-4.6-1-3.9-1.6-6.300-5.500-6.500-5.800-.2-.2-1.500-2-1.500-3.800s1-2.700 1.300-3.100c.4-.4.800-.4 1-.4h.7c.2 0 .5-.1.8.6l1 2.500c.1.200.1.400 0 .6l-.5.700c-.2.200-.3.400-.1.700.2.300.9 1.500 2 2.400 1.400 1.200 2.500 1.600 2.900 1.800.3.200.5.100.7-.1l1-1.200c.2-.3.500-.3.800-.2l2.400 1.200c.3.100.5.200.6.300.1.200.1.800-.2 1.600z"/></svg></a>
 
 <dialog id="dlg"><div class="dl" id="dbody"></div></dialog>
-<dialog id="qd"><div class="dl"><button class="x" id="qx" aria-label="Close">×</button><h3>Quotation list</h3><div id="ql"></div><div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn b-wa" id="qwa">Send via WhatsApp</button><a class="btn b-gh" id="qem" href="#">Send via email</a></div><p class="note" style="color:var(--mut)">This opens WhatsApp or your email app with the list filled in. You send it yourself.</p></div></dialog>
+<dialog id="qd"><div class="dl"><button class="x" id="qx" aria-label="Close">×</button><h3>Quotation list</h3><div id="ql"></div><div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn b-wa" id="qwa">Send via WhatsApp</button></div><p class="note" style="color:var(--mut)">This opens WhatsApp with the list filled in. You send it yourself.</p></div></dialog>
 
 <script>
 (function(){
-var WA="2349067305559",MAIL="info@ritesolar.com";
+var WA="2349067305559";
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
 function wa(t){return"https://wa.me/"+WA+"?text="+encodeURIComponent(t)}
 var MSG={gen:"Hello RITE SOLAR, I visited your website and would like to enquire about your solar products and pricing.",dist:"Hello RITE SOLAR, I am interested in becoming a distributor. Please share your partnership requirements and wholesale pricing information."};
@@ -284,7 +283,7 @@ function add(id){Q[id]=(Q[id]||0)+1;sv();rq();$("#cb").focus()}
 function rq(){var k=Object.keys(Q).filter(nm);$("#ql").innerHTML=k.length?k.map(function(id){return'<div class="qi"><span>'+nm(id).n+'</span><span><input type="number" min="1" max="9999" value="'+Q[id]+'" data-q="'+id+'" aria-label="Quantity for '+nm(id).n+'"> <button class="chip" data-r="'+id+'" aria-label="Remove '+nm(id).n+'">Remove</button></span></div>'}).join(""):"<p>Your list is empty. Add products from the catalogue.</p>";
 $$("[data-q]").forEach(function(i){i.onchange=function(){var v=Math.max(1,Math.min(9999,parseInt(i.value)||1));Q[i.dataset.q]=v;sv();rq()}});$$("[data-r]").forEach(function(b){b.onclick=function(){delete Q[b.dataset.r];sv();rq()}});
 var t="Hello RITE SOLAR, I would like a quotation for:\n"+k.map(function(id){return"- "+nm(id).n+" x "+Q[id]}).join("\n")+"\nPlease send current prices and availability.";
-$("#qwa").onclick=function(){if(!k.length)return;window.open(wa(t),"_blank","noopener")};$("#qem").href="mailto:"+MAIL+"?subject="+encodeURIComponent("Quotation request")+"&body="+encodeURIComponent(t)}
+$("#qwa").onclick=function(){if(!k.length)return;window.open(wa(t),"_blank","noopener")};}
 $("#cb").onclick=function(){rq();$("#qd").showModal()};$("#qx").onclick=function(){$("#qd").close()};
 /* why + trust + faq */
 $("#whyg").innerHTML=[["🛡️","Genuine Tier-1 Products","Quality-focused product sourcing for long-term value."],["💰","Competitive Supply Pricing","Explore wholesale and distributor pricing options."],["🚚","Reliable Supply","Discuss product availability, order quantities and delivery arrangements with our team."],["🎧","Professional Support","Get assistance with product selection and business enquiries."],["🌿","Grow With Clean Energy","Explore opportunities in the expanding solar energy market."]].map(function(w){return'<div class="card"><div class="ic" aria-hidden="true">'+w[0]+'</div><h3>'+w[1]+'</h3><p>'+w[2]+'</p></div>'}).join("");
@@ -301,7 +300,7 @@ if(b){i.setAttribute("aria-invalid","true");bad=bad||i}});
 if(bad){er.textContent="Please correct the highlighted fields. Phone numbers need a country code, e.g. +234…. Consent is required.";bad.focus();return}
 var lines=[];$$("input,select,textarea",f).forEach(function(i){if(i.name&&i.name!="website"&&i.type!="checkbox"&&i.value.trim())lines.push(i.name+": "+i.value.trim())});
 var t="Hello RITE SOLAR, "+title+"\n"+lines.join("\n");var sp=saveLead(title,lines);
-ok.innerHTML='<div class="ok"><b>Details ready.</b> Choose how to send them to RITE SOLAR. Your enquiry is not submitted until you send the message.<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><a class="btn b-wa" target="_blank" rel="noopener" href="'+wa(t)+'">Send on WhatsApp</a><a class="btn b-gh" href="mailto:'+MAIL+'?subject='+encodeURIComponent(title)+'&body='+encodeURIComponent(t)+'">Send by email</a></div><p style="margin:10px 0 0">Next steps: our team reviews your enquiry and replies to discuss requirements. Approval or availability is not guaranteed.</p></div>';sp.then(function(g){if(g)ok.insertAdjacentHTML('afterbegin','<div class="ok" style="margin-bottom:8px"><b>Received.</b> RITE SOLAR has your details and will contact you.</div>')})}}
+ok.innerHTML='<div class="ok"><b>Details ready.</b> Tap the button to send them to RITE SOLAR on WhatsApp. Your enquiry is not submitted until you send the message.<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><a class="btn b-wa" target="_blank" rel="noopener" href="'+wa(t)+'">Send on WhatsApp</a></div><p style="margin:10px 0 0">Next steps: our team reviews your enquiry and replies to discuss requirements. Approval or availability is not guaranteed.</p></div>';sp.then(function(g){if(g)ok.insertAdjacentHTML('afterbegin','<div class="ok" style="margin-bottom:8px"><b>Received.</b> RITE SOLAR has your details and will contact you.</div>')})}}
 fm("#dform","#derr","#dok","I would like to apply to become a distributor.");fm("#cform","#cerr","#cok","I have an enquiry.");
 /* tilt on fine pointers */
 if(matchMedia("(hover:hover) and (pointer:fine)").matches&&!matchMedia("(prefers-reduced-motion:reduce)").matches){document.addEventListener("pointermove",function(e){var c=e.target.closest&&e.target.closest(".tilt");$$(".tilt").forEach(function(x){if(x!==c)x.style.transform=""});if(!c)return;var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.style.transform="perspective(800px) rotateY("+px*8+"deg) rotateX("+-py*8+"deg)"})}
