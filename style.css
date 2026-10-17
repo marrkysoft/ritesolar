@@ -186,3 +186,15 @@ form.srch{padding:0;gap:0;display:flex;border-radius:999px;background:var(--bg)}
 .pd{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}@media(max-width:700px){.pd{grid-template-columns:1fr}}
 .doc{max-width:760px}.doc h2{font-size:1.4rem;margin-top:28px}.doc li{margin:6px 0;color:var(--mut)}
 .pnote{border:2px dashed var(--or);border-radius:14px;padding:14px;background:var(--card);margin:16px 0}
+
+/* book page-flip slider */
+#slides{perspective:1800px}
+.slide{opacity:1;visibility:hidden;transform:none;transition:none;transform-origin:left center;backface-visibility:hidden;z-index:0}
+.slide.on{visibility:visible;z-index:1;transform:none}
+.slide.flipout{z-index:3;animation:pageout .9s cubic-bezier(.45,.05,.25,1) forwards}
+.slide.flipin{z-index:3;visibility:visible;animation:pagein .9s cubic-bezier(.25,.05,.45,1) forwards}
+.slide.flipout::after,.slide.flipin::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:4;background:linear-gradient(90deg,rgba(0,0,0,.6),rgba(0,0,0,0) 75%);animation:shade .9s ease-in-out forwards}
+.slide.flipout{box-shadow:12px 0 40px rgba(0,0,0,.45)}
+@keyframes pageout{from{transform:rotateY(0)}to{transform:rotateY(-180deg)}}
+@keyframes pagein{from{transform:rotateY(-180deg)}to{transform:rotateY(0)}}
+@keyframes shade{0%{opacity:0}45%{opacity:1}100%{opacity:0}}
