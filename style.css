@@ -191,10 +191,29 @@ form.srch{padding:0;gap:0;display:flex;border-radius:999px;background:var(--bg)}
 #slides{perspective:1800px}
 .slide{opacity:1;visibility:hidden;transform:none;transition:none;transform-origin:left center;backface-visibility:hidden;z-index:0}
 .slide.on{visibility:visible;z-index:1;transform:none}
-.slide.flipout{z-index:3;animation:pageout .9s cubic-bezier(.45,.05,.25,1) forwards}
-.slide.flipin{z-index:3;visibility:visible;animation:pagein .9s cubic-bezier(.25,.05,.45,1) forwards}
-.slide.flipout::after,.slide.flipin::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:4;background:linear-gradient(90deg,rgba(0,0,0,.6),rgba(0,0,0,0) 75%);animation:shade .9s ease-in-out forwards}
+.slide.flipout{z-index:3;animation:pageout 2.6s cubic-bezier(.62,0,.38,1) forwards}
+.slide.flipin{z-index:3;visibility:visible;animation:pagein 2.6s cubic-bezier(.62,0,.38,1) forwards}
+.slide.flipout::after,.slide.flipin::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:4;background:linear-gradient(90deg,rgba(0,0,0,.6),rgba(0,0,0,0) 75%);animation:shade 2.6s ease-in-out forwards}
 .slide.flipout{box-shadow:12px 0 40px rgba(0,0,0,.45)}
 @keyframes pageout{from{transform:rotateY(0)}to{transform:rotateY(-180deg)}}
 @keyframes pagein{from{transform:rotateY(-180deg)}to{transform:rotateY(0)}}
 @keyframes shade{0%{opacity:0}45%{opacity:1}100%{opacity:0}}
+
+/* two-sided page: front shows slide, back shows paper while turning */
+.slide{transform-style:preserve-3d}
+.slide>.sl-txt,.slide>.art,.slide::before,.slide::after{backface-visibility:hidden}
+.pageback{position:absolute;inset:0;transform:rotateY(180deg);backface-visibility:hidden;display:grid;place-items:center;background:linear-gradient(135deg,#0b1d3f,#14532d 70%,#7a4a00);box-shadow:inset 0 0 80px rgba(0,0,0,.5)}
+.pageback span{font:900 clamp(1.6rem,6vw,3.4rem) Archivo,sans-serif;font-style:italic;color:rgba(255,255,255,.18);letter-spacing:-.02em}
+.pageback b{color:rgba(255,196,0,.35)}
+
+/* book spread: right half of the page turns over a centre spine */
+#flip{position:absolute;inset:0;z-index:4;perspective:2400px;pointer-events:none;overflow:hidden}
+#flip::before{content:"";position:absolute;left:calc(50% - 3px);top:0;bottom:0;width:6px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.55),transparent);z-index:6}
+#flip .oL{position:absolute;inset:0;clip-path:inset(0 50% 0 0)}
+#flip .leaf{position:absolute;inset:0;transform-style:preserve-3d;transform-origin:50% 50%;animation:leaf 2.6s cubic-bezier(.62,0,.38,1) forwards}
+#flip .leaf.rev{animation-direction:reverse}
+#flip .fr,#flip .bk{position:absolute;inset:0;clip-path:inset(0 0 0 50%);backface-visibility:hidden}
+#flip .bk{transform:rotateY(180deg);clip-path:inset(0 50% 0 0)}
+#flip .slide{position:absolute;inset:0;visibility:visible!important;transform:none!important;z-index:auto;animation:none}
+#flip .fr::after,#flip .bk::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.6),rgba(0,0,0,0) 65%);animation:shade 2.6s ease-in-out forwards}
+@keyframes leaf{from{transform:rotateY(0)}to{transform:rotateY(-180deg)}}
