@@ -217,3 +217,16 @@ form.srch{padding:0;gap:0;display:flex;border-radius:999px;background:var(--bg)}
 #flip .slide{position:absolute;inset:0;visibility:visible!important;transform:none!important;z-index:auto;animation:none}
 #flip .fr::after,#flip .bk::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.6),rgba(0,0,0,0) 65%);animation:shade 2.6s ease-in-out forwards}
 @keyframes leaf{from{transform:rotateY(0)}to{transform:rotateY(-180deg)}}
+
+.card .img img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;border-radius:12px}
+.gal{min-width:0}.gmain{display:grid;place-items:center;padding:0;overflow:hidden}
+.gm{border:0;background:none;padding:0;width:100%;height:100%;cursor:zoom-in}.gm img{width:100%;height:100%;object-fit:contain}
+.gth{display:flex;gap:8px;margin-top:10px;overflow-x:auto}
+.gt{flex:none;width:72px;height:72px;border:2px solid var(--line);border-radius:12px;background:#fff;padding:2px;cursor:pointer}
+.gt[aria-current=true]{border-color:var(--or);box-shadow:0 0 0 2px rgba(255,138,0,.3)}.gt img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+#dlg:has(.lb){max-width:min(920px,96vw)}
+.lb{display:flex;align-items:center;gap:8px}.lb img{flex:1;min-width:0;max-height:72vh;object-fit:contain}
+.lbn{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid var(--ink);background:var(--card);color:var(--ink);font-size:1.4rem;cursor:pointer}
+.gv{display:flex;flex-wrap:wrap;gap:8px}.gv .chip[data-found]{border-color:#17a34a;background:#e8f8ee;color:#0b4a22}.gv .chip[data-found]::after{content:" ✓"}.gv .chip[data-copied]::after{content:" copied"}
+#guide{min-width:0}.gv .chip{max-width:100%;overflow-wrap:anywhere;text-align:left;font-size:.8rem;padding:8px 12px}.doc ol{padding-inline-start:20px}.card h3{overflow-wrap:anywhere}
+.pnote,.pnote *{overflow-wrap:anywhere}
